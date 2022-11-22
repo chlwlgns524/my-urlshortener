@@ -68,12 +68,14 @@ class MemberMapperTest {
     void testToMemberDto() {
         // Given
         MemberDto manualConversion = MemberDto.builder()
+            .id(1L)
             .email("test@gmail.com")
             .name("test")
             .password("!test")
             .build();
 
         Member member = Member.builder()
+            .id(1L)
             .email(manualConversion.getEmail())
             .name(manualConversion.getName())
             .password(manualConversion.getPassword())
@@ -85,6 +87,7 @@ class MemberMapperTest {
         // Then
         assertThat(memberDtoThroughMapper)
             .usingRecursiveComparison()
+            .ignoringFields("password")
             .isEqualTo(manualConversion);
     }
 

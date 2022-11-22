@@ -18,7 +18,6 @@ public class MemberMapper {
             .id(member.getId())
             .email(member.getEmail())
             .name(member.getName())
-            .password(member.getPassword())
             .build();
     }
 
