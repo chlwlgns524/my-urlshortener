@@ -27,13 +27,13 @@ public class MemberRepositoryTest {
     MemberRepository memberRepository;
 
     @BeforeEach
-    public void initApplicationContext() {
+    void initApplicationContext() {
         applicationContext = new AnnotationConfigApplicationContext(MemberRepositoryTestConfig.class);
         memberRepository = applicationContext.getBean("memberRepository", MemberRepository.class);
     }
 
     @AfterEach
-    public void clear() {
+    void clear() {
         memberRepository.deleteAll();
     }
 
