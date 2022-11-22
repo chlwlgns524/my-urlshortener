@@ -25,7 +25,8 @@ public class MemberService {
     }
 
     public MemberDto login(String email, String password) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(RuntimeException::new);
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("해당 회원이 존재하지 않습니다."));
 
         if (member.getPassword().equals(password))
             return memberMapper.toMemberDto(member);
