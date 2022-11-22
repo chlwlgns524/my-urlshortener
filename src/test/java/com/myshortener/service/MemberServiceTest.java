@@ -39,7 +39,7 @@ class MemberServiceTest {
                 .build());
     }
 
-    @DisplayName("mocked dependency를 이용하여 MemberService bean을 생성한다.")
+    @DisplayName("mocked dependency를 이용하여 MemberService bean이 생성되었음을 확인한다.")
     @Test
     void checkMemberService() {
         assertThat(mockedMemberMapper).isNotNull();

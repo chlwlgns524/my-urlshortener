@@ -31,7 +31,7 @@ class MemberMapperTest {
         memberMapper = applicationContext.getBean("memberMapper", MemberMapper.class);
     }
 
-    @DisplayName("IoC 컨테이너로부터 MemberMapper bean을 주입받는다.")
+    @DisplayName("DI 컨테이너로부터 MemberMapper bean을 주입받았음을 확인한다.")
     @Test
     void checkInitApplicationContext() {
         assertThat(applicationContext).isNotNull();
