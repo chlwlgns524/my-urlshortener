@@ -2,7 +2,6 @@ package com.myshortener.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.myshortener.config.TestConfig;
 import com.myshortener.entity.Member;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
@@ -11,16 +10,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 public class MemberRepositoryTest {
+
+    static class MemberRepositoryTestConfig {
+
+        @Bean
+        public MemberRepository memberRepository() {
+            return new JdbcMemberRepository();
+        }
+
+    }
 
     ApplicationContext applicationContext;
     MemberRepository memberRepository;
 
-    @DisplayName("IoC 컨테이너로부터 MemberRepository bean을 주입받는다.")
     @BeforeEach
     public void initApplicationContext() {
-        applicationContext = new AnnotationConfigApplicationContext(TestConfig.class);
+        applicationContext = new AnnotationConfigApplicationContext(MemberRepositoryTestConfig.class);
         memberRepository = applicationContext.getBean("memberRepository", MemberRepository.class);
     }
 
@@ -29,6 +37,7 @@ public class MemberRepositoryTest {
         memberRepository.deleteAll();
     }
 
+    @DisplayName("IoC 컨테이너로부터 MemberRepository bean을 주입받는다.")
     @Test
     void checkInitApplicationContext() {
         assertThat(applicationContext).isNotNull();

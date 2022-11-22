@@ -2,7 +2,6 @@ package com.myshortener.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.myshortener.config.TestConfig;
 import com.myshortener.controller.dto.MemberDto;
 import com.myshortener.entity.Member;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,19 +9,29 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 class MemberMapperTest {
+
+    static class MemberMapperTestConfig {
+
+        @Bean
+        public MemberMapper memberMapper() {
+            return new MemberMapper();
+        }
+
+    }
 
     ApplicationContext applicationContext;
     MemberMapper memberMapper;
 
-    @DisplayName("IoC 컨테이너로부터 MemberMapper bean을 주입받는다.")
     @BeforeEach
     void initApplicationContext() {
-        applicationContext = new AnnotationConfigApplicationContext(TestConfig.class);
+        applicationContext = new AnnotationConfigApplicationContext(MemberMapperTestConfig.class);
         memberMapper = applicationContext.getBean("memberMapper", MemberMapper.class);
     }
 
+    @DisplayName("IoC 컨테이너로부터 MemberMapper bean을 주입받는다.")
     @Test
     void checkInitApplicationContext() {
         assertThat(applicationContext).isNotNull();
